@@ -1,49 +1,32 @@
 Project: Admin Dashboard for Annual Report Upload
 
-Purpose:
-Build a web-based admin dashboard that allows authorized users to upload annual report PDFs. Each report will be categorized by year and quarter. The files will be stored in Supabase Storage, and the dashboard will be hosted on Netlify.
+Objective:
+Build a simple web admin dashboard to upload annual report PDFs categorized by year and quarter. Use Supabase for storage and Netlify for hosting.
 
-Features:
-1. User Authentication (optional if needed for admin-only access)
-2. Upload PDF reports
-3. Select year and quarter for each uploaded report
-4. List and manage uploaded reports
-5. Store and retrieve reports from Supabase Storage
-6. Dashboard accessible via a secure web interface
-
-Frontend:
-- Framework: React
-- Hosting: Netlify
-- UI: Tailwind CSS or your choice of component library
-
-Backend/Storage:
-- Supabase (for authentication, file storage, and metadata handling)
-  - Use Supabase Storage Bucket for storing PDFs
-  - Store metadata (year, quarter, filename, upload date) in a Supabase table
-
-Components/Pages:
-- Login Page (optional for admin auth)
-- Dashboard Page
-  - Upload Form
-    - File input (PDF only)
-    - Year dropdown (e.g., 2020 to current)
-    - Quarter dropdown (Q1, Q2, Q3, Q4)
-  - List of Uploaded Reports
-    - Filter by year and quarter
-    - Download/View links
-
-Deployment:
-- Hosted on Netlify
-- Connect Supabase keys via Netlify environment variables
+Key Features:
+1. Upload PDF files of annual reports.
+2. Select and assign year (e.g., 2020–2025) and quarter (Q1, Q2, Q3, Q4) to each upload.
+3. View and manage uploaded files (list existing uploads with download/view options).
+4. Store PDF files in Supabase Storage.
+5. Store associated metadata (filename, year, quarter, upload date) in Supabase database.
+6. Host project on Netlify.
 
 Tech Stack:
-- React + Vite (or Create React App)
-- Supabase (Storage + Postgres DB)
-- Tailwind CSS (optional)
-- Netlify (for CI/CD and hosting)
+- Frontend: React (no UI library or styling framework, just basic CSS)
+- Storage: Supabase (Storage buckets + Postgres for metadata)
+- Hosting: Netlify (including environment variables for Supabase API)
 
-Other Notes:
-- Ensure CORS is configured properly on Supabase
-- Use environment variables to store Supabase API keys securely
-- Validate file type and size before upload
+Frontend Pages:
+- Dashboard
+  - Upload form:
+    - PDF file input
+    - Year dropdown (e.g., 2020–2025)
+    - Quarter dropdown (Q1–Q4)
+    - Submit button
+  - List of uploaded reports:
+    - Show filename, year, quarter, upload date
+    - Download link
 
+Functionality:
+- Validate file input (must be PDF)
+- Basic error

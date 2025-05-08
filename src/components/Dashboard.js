@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { createClient } from '@supabase/supabase-js';
 import './Dashboard.css';
 
@@ -22,11 +22,7 @@ function Dashboard() {
   const years = Array.from({ length: 6 }, (_, i) => (2020 + i).toString());
   const quarters = ['Q1', 'Q2', 'Q3', 'Q4'];
 
-  useEffect(() => {
-    fetchReports();
-  }, [sortOrder]);
-
-  const fetchReports = async () => {
+  const fetchReports = useCallback(async () => {
     try {
       // First, get all files from the storage bucket
       const { data: files, error: storageError } = await supabase.storage
@@ -58,7 +54,11 @@ function Dashboard() {
       console.error('Error fetching reports:', error);
       setError('Error fetching reports: ' + error.message);
     }
-  };
+  }, [sortOrder]);
+
+  useEffect(() => {
+    fetchReports();
+  }, [fetchReports]);
 
   const handleFileChange = (e) => {
     const selectedFile = e.target.files[0];
@@ -85,7 +85,7 @@ function Dashboard() {
       const fileExt = file.name.split('.').pop();
       const fileName = `${year}_${quarter}_${Date.now()}.${fileExt}`;
       
-      const { data: fileData, error: uploadError } = await supabase.storage
+      const { error: uploadError } = await supabase.storage
         .from(STORAGE_BUCKET)
         .upload(fileName, file, {
           cacheControl: '3600',
